@@ -10,7 +10,7 @@ plugins {
 val testFxVer = "4.0.16-alpha"
 
 group = "systems.terranatal.jfxtras"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.2-SNAPSHOT"
 
 repositories {
     mavenCentral()
