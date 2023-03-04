@@ -5,6 +5,7 @@ plugins {
     application
     id("org.openjfx.javafxplugin") version "0.0.13"
     id("org.javamodularity.moduleplugin") version "1.8.12"
+    id("com.javiersc.semver.gradle.plugin") version "0.4.0-alpha.1"
 }
 val testFxVer = "4.0.16-alpha"
 
