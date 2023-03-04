@@ -1,0 +1,2 @@
+# jfxtras
+JavaFX + Functional Programming
