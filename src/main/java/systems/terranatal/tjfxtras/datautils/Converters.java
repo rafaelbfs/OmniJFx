@@ -1,4 +1,4 @@
-package systems.terranatal.jfxtras.datautils;
+package systems.terranatal.tjfxtras.datautils;
 
 import javafx.util.StringConverter;
 

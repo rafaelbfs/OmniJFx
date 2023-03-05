@@ -5,4 +5,4 @@
   org.junit.jupiter.api,org.testfx,org.testfx.junit5,javafx.graphics
 
 --add-reads
-  jfxtras=org.junit.jupiter.api,org.testfx,org.testfx.junit5
+  tjfxtras=org.junit.jupiter.api,org.testfx,org.testfx.junit5
