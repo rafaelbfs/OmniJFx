@@ -24,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install GTK3
-      run: sudo apt-get install -y libgtk-3-dev
+      run: sudo apt-get install -y libgtk-3-dev xvfb
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
@@ -36,4 +36,4 @@ jobs:
       uses: gradle/gradle-build-action@v2
 
     - name: Execute Gradle build
-      run: ./gradlew --stacktrace build -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw
+      run: xvfb-run ./gradlew --scan build -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw
