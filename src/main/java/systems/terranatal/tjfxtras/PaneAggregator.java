@@ -1,4 +1,4 @@
-package systems.terranatal.jfxtras;
+package systems.terranatal.tjfxtras;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;

@@ -1,3 +1,4 @@
-# tjfxtras (renamed from previous jfxtras
+# tjfxtras
+*renamed from previously jfxtras*
 
 Terranatal-systems' Java FX eXtra Stuff

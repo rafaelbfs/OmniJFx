@@ -1,7 +1,7 @@
-package systems.terranatal.jfxtras;
+package systems.terranatal.tjfxtras;
 
 import javafx.scene.control.TextInputControl;
-import systems.terranatal.jfxtras.datautils.Converters;
+import systems.terranatal.tjfxtras.datautils.Converters;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;

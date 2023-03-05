@@ -10,7 +10,7 @@ plugins {
 }
 val testFxVer = "4.0.16-alpha"
 
-group = "systems.terranatal.jfxtras"
+group = "systems.terranatal.tjfxtras"
 version = "0.1.2-SNAPSHOT"
 
 repositories {
