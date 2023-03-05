@@ -17,19 +17,6 @@ repositories {
     mavenCentral()
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("library") {
-            from(components["java"])
-        }
-    }
-    repositories {
-        maven {
-            url = uri("${buildDir}/publishing-repository")
-        }
-    }
-}
-
 dependencies {
     compileOnly("org.jetbrains:annotations:16.0.2")
 
@@ -46,6 +33,8 @@ tasks.test {
 
 java {
     version = 17
+    //sourceCompatibility = org.gradle.api.JavaVersion.VERSION_17
+    //targetCompatibility = org.gradle.api.JavaVersion.VERSION_17
 }
 
 kotlin {
