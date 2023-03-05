@@ -25,8 +25,6 @@ dependencies {
     testImplementation("org.testfx:testfx-core:$testFxVer")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.1")
     testImplementation("org.testfx:testfx-junit5:$testFxVer")
-
-    testImplementation( "org.testfx:openjfx-monocle:jdk-12.0.1+2")
 }
 
 tasks.test {
