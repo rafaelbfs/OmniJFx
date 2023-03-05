@@ -1,2 +1,3 @@
-# jfxtras
-JavaFX + Functional Programming
+# tjfxtras (renamed from previous jfxtras
+
+Terranatal-systems' Java FX eXtra Stuff
