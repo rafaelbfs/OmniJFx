@@ -23,13 +23,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 11
+    - name: Install GTK3
+      run: sudo apt-get install -y libgtk-3-dev xvfb
+    - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
-        java-version: '11'
-        javafx: true
-        distribution: 'temurin'
+        distribution: 'zulu'
+        java-version: '17'
+        java-package: 'jdk+fx'
+
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-      with:
-        arguments: build
+      uses: gradle/gradle-build-action@v2
+
+    - name: Execute Gradle build
+      run: xvfb-run ./gradlew --scan build -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw
