@@ -1,11 +1,12 @@
 import org.javamodularity.moduleplugin.extensions.TestModuleOptions
 
 plugins {
+    `java-library`
+    `maven-publish`
     kotlin("jvm") version "1.8.0"
-    application
     id("org.openjfx.javafxplugin") version "0.0.13"
     id("org.javamodularity.moduleplugin") version "1.8.12"
-    id("com.javiersc.semver.gradle.plugin") version "0.4.0-alpha.1"
+//    id("com.javiersc.semver.gradle.plugin") version "0.4.0-alpha.1"
 }
 val testFxVer = "4.0.16-alpha"
 
@@ -14,6 +15,19 @@ version = "0.1.2-SNAPSHOT"
 
 repositories {
     mavenCentral()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("library") {
+            from(components["java"])
+        }
+    }
+    repositories {
+        maven {
+            url = uri("${buildDir}/publishing-repository")
+        }
+    }
 }
 
 dependencies {
@@ -28,6 +42,10 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+java {
+    version = 17
 }
 
 kotlin {
