@@ -1,5 +1,6 @@
 package systems.terranatal.jfxtras;
 
+import javafx.scene.control.TextInputControl;
 import systems.terranatal.jfxtras.datautils.Converters;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
@@ -31,19 +32,12 @@ public class TestAggregators {
                     degsToRadians.compose(Double::parseDouble),
                     radsToDegrees.andThen("%.1f"::formatted)));
         });
-        angleInDegrees = Init.textField().with(tf -> tf.textProperty()
-                .bind(slider.valueProperty().map(
-                        doubleValue.andThen(radsToDegrees)
-                        .andThen("%.1f"::formatted)))
-        );
-        sinAlpha = Init.textField().with(tf -> tf.textProperty()
-                .bind(slider.valueProperty().map(
-                        doubleValue.andThen(Math::sin).andThen("%.2f"::formatted)))
-        );
-        cosAlpha = Init.textField().with(tf -> tf.textProperty()
-                .bind(slider.valueProperty().map(
-                        doubleValue.andThen(Math::cos).andThen("%.2f"::formatted)))
-        );
+        angleInDegrees = Init.textField().listeningTo(slider.valueProperty(), TextInputControl::textProperty,
+                doubleValue.andThen(radsToDegrees).andThen("%.1f"::formatted)).get();
+        sinAlpha = Init.textField().listeningTo(slider.valueProperty(), TextInputControl::textProperty,
+                doubleValue.andThen(Math::sin).andThen("%.2f"::formatted)).get();
+        cosAlpha = Init.textField().listeningTo(slider.valueProperty(), TextInputControl::textProperty,
+                doubleValue.andThen(Math::cos).andThen("%.2f"::formatted)).get();
         var vbox = Init.vbox().aggregator().addChild(
                 Init.hbox().aggregator().addChild(
                         Init.withLabelOnLeft("Angle in degrees").addChild(angleInDegrees).get()

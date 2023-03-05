@@ -1,5 +1,8 @@
 package systems.terranatal.jfxtras;
 
+import javafx.beans.property.Property;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -8,7 +11,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public interface Init<T extends Node> extends Supplier<T> {
@@ -56,6 +61,13 @@ public interface Init<T extends Node> extends Supplier<T> {
 
     static Init<TextField> textField() {
         return TextField::new;
+    }
+
+    default  <V, P> Aggregator<T> listeningTo(ObservableValue<V> source, Function<T, Property<P>> target,
+                                                              Function<V, P> map) {
+        var node = this.get();
+        source.addListener((src, old, newv) -> target.apply(node).setValue(map.apply(newv)));
+        return new Aggregator<>(node);
     }
 
     static <U extends Pane> PaneAggregator<U> layout(Supplier<U> supplier) {
