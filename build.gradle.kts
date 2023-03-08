@@ -25,8 +25,8 @@ publishing {
             name = "OSSRH"
             url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username = System.getenv("OSS_MAVEN_USERNAME")
-                password = System.getenv("OSS_MAVEN_PASSWORD")
+                username = System.getenv("OSS_USERNAME")
+                password = System.getenv("OSS_PASSWORD")
             }
         }
     }
