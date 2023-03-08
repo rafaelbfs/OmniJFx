@@ -13,6 +13,25 @@ val testFxVer = "4.0.16-alpha"
 group = "systems.terranatal.tjfxtras"
 version = "0.1.2-SNAPSHOT"
 
+publishing {
+    publications {
+        create<MavenPublication>("tjfxtras") {
+            from(components["java"])
+            version = project.version.toString()
+        }
+    }
+    repositories {
+        maven {
+            name = "OSSRH"
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = System.getenv("OSS_MAVEN_USERNAME")
+                password = System.getenv("OSS_MAVEN_PASSWORD")
+            }
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -33,8 +52,6 @@ tasks.test {
 
 java {
     version = 17
-    //sourceCompatibility = org.gradle.api.JavaVersion.VERSION_17
-    //targetCompatibility = org.gradle.api.JavaVersion.VERSION_17
 }
 
 kotlin {
