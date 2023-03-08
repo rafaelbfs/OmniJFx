@@ -1,2 +1,2 @@
-rootProject.name = "tjfxtras"
+rootProject.name = "core"
 
