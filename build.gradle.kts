@@ -4,7 +4,7 @@ plugins {
     `java-library`
     `maven-publish`
     kotlin("jvm") version "1.8.0"
-    id("org.openjfx.javafxplugin") version "0.0.13"
+    id("org.openjfx.javafxplugin") version "0.1.0"
     id("org.javamodularity.moduleplugin") version "1.8.12"
 //    id("com.javiersc.semver.gradle.plugin") version "0.4.0-alpha.1"
 }
@@ -51,7 +51,7 @@ tasks.test {
 }
 
 java {
-    version = 17
+    version = 21
 }
 
 kotlin {
@@ -59,6 +59,6 @@ kotlin {
 }
 
 javafx {
-    version = "17.0.2"
+    version = "21.0.2"
     modules("javafx.controls", "javafx.graphics")
 }

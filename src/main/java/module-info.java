@@ -5,10 +5,10 @@ module tjfxtras {
     requires annotations;
     //requires org.junit.jupiter.engine;
 
-    opens systems.terranatal.tjfxtras;
+    opens systems.terranatal.tjfxtras.builder;
     opens systems.terranatal.tjfxtras.datautils;
 
     exports systems.terranatal.tjfxtras.datautils;
 
-    exports systems.terranatal.tjfxtras;
+    exports systems.terranatal.tjfxtras.builder;
 }

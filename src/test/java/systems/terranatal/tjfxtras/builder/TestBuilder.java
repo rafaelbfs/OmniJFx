@@ -1,6 +1,7 @@
-package systems.terranatal.tjfxtras;
+package systems.terranatal.tjfxtras.builder;
 
 import javafx.scene.control.TextInputControl;
+import systems.terranatal.tjfxtras.builder.Builders;
 import systems.terranatal.tjfxtras.datautils.Converters;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
@@ -18,7 +19,7 @@ import java.util.function.Function;
 import static java.lang.Math.PI;
 
 @ExtendWith(ApplicationExtension.class)
-public class TestAggregators {
+public class TestBuilder {
     private final Function<Double, Double> degsToRadians = degs -> degs * PI/180.0;
     private final Function<Double, Double> radsToDegrees = rads -> rads * 180.0/PI;
 
@@ -27,25 +28,22 @@ public class TestAggregators {
     TextField angleInDegrees, sinAlpha, cosAlpha;
 
     private Scene makeTestScene() {
-        slider = Init.slider(-2.0 * PI, 2 * PI, 0.0).with(s -> {
+        slider = Builders.slider(-2.0 * PI, 2 * PI, 0.0).init(s -> {
             s.setLabelFormatter(Converters.makeStrConverter(
                     degsToRadians.compose(Double::parseDouble),
                     radsToDegrees.andThen("%.1f"::formatted)));
         });
-        angleInDegrees = Init.textField().listeningTo(slider.valueProperty(), TextInputControl::textProperty,
+        angleInDegrees = Builders.textField("").bind(slider.valueProperty(), TextInputControl::textProperty,
                 doubleValue.andThen(radsToDegrees).andThen("%.1f"::formatted)).get();
-        sinAlpha = Init.textField().listeningTo(slider.valueProperty(), TextInputControl::textProperty,
+        sinAlpha = Builders.textField("").bind(slider.valueProperty(), TextInputControl::textProperty,
                 doubleValue.andThen(Math::sin).andThen("%.2f"::formatted)).get();
-        cosAlpha = Init.textField().listeningTo(slider.valueProperty(), TextInputControl::textProperty,
+        cosAlpha = Builders.textField("").bind(slider.valueProperty(), TextInputControl::textProperty,
                 doubleValue.andThen(Math::cos).andThen("%.2f"::formatted)).get();
-        var vbox = Init.vbox().aggregator().addChild(
-                Init.hbox().aggregator().addChild(
-                        Init.withLabelOnLeft("Angle in degrees").addChild(angleInDegrees).get()
-                ).addChild(
-                        Init.withLabelOnLeft("Sin(x)").addChild(sinAlpha).get()
-                ).addChild(
-                        Init.withLabelOnLeft("Cos(x)").addChild(cosAlpha).get()
-                ).get()
+        var vbox = Builders.vBox().addChild(
+                Builders.vBox()
+                        .addChild(Builders.labeledRow("Angle in Degrees").addChild(angleInDegrees))
+                        .addChild(Builders.labeledRow("Sin(alpha)").addChild(sinAlpha))
+                        .addChild(Builders.labeledRow("Cos(alpha)").addChild(cosAlpha))
         ).addChild(slider).get();
 
         return new Scene(vbox, 720, 100);
