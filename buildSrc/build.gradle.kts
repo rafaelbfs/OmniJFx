@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "systems.terranatal.tfxtras"
-version = "1.0-SNAPSHOT"
+version = rootProject.version
 
 repositories {
     mavenCentral()

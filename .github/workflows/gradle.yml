@@ -25,11 +25,11 @@ jobs:
     - uses: actions/checkout@v3
     - name: Install GTK3
       run: sudo apt-get install -y libgtk-3-dev xvfb
-    - name: Set up JDK 17
+    - name: Set up JDK 21
       uses: actions/setup-java@v3
       with:
         distribution: 'zulu'
-        java-version: '17'
+        java-version: '21'
         java-package: 'jdk+fx'
 
     - name: Build with Gradle
