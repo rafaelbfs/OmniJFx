@@ -39,18 +39,41 @@ public interface Builders {
         return new PaneInitializer<>(pane);
     }
 
+    /**
+     * Initializes a label
+     * @param lbl the label text
+     * @return an initializer for the label
+     */
     static Initializer<Label> label(String lbl) {
         return new Initializer<>(new Label(lbl));
     }
 
+    /**
+     * Creates a text field with an initial text
+     * @param initialText an initial text
+     * @return an {@link Initializer} with the text field
+     */
     static Initializer<TextField> textField(String initialText) {
         return new Initializer<>(new TextField(initialText));
     }
 
+    /**
+     * Creates an initializer containing a {@link Button} with a text
+     * @param btnText the button text
+     * @return an {@link Initializer} with the {@link Button}
+     */
     static Initializer<Button> button(String btnText) {
         return node(new Button(btnText));
     }
 
+    /**
+     * Creates an {@link Initializer} containing a {@link Slider} with some presets
+     * that can be passed as parameters
+     * @param minimum the lowest value the {@link Slider} can represent
+     * @param maximum the highest values this {@link Slider}
+     * @param initial the initial value which must be between the 'minimum' and 'maximum' values
+     * @return an {@link Initializer} with the {@link Slider}
+     */
     static Initializer<Slider> slider(double minimum, double maximum, double initial) {
         return node(new Slider(minimum, maximum, initial));
     }

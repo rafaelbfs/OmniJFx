@@ -1,4 +1,5 @@
 import org.javamodularity.moduleplugin.extensions.TestModuleOptions
+import systems.terranatal.generateMvnPublication
 import systems.terranatal.signPublication
 
 plugins {
@@ -18,39 +19,7 @@ repositories {
     mavenCentral()
 }
 
-publishing {
-    publications {
-        create<MavenPublication>(publicationName) {
-            from(components["java"])
-            pom {
-                name = "tfxtras-java"
-                description = "Utility helpers to create JavaFX components using Java"
-                url = "https://github.com/rafaelbfs/tfxtras/jfx"
-                licenses {
-                    license {
-                        name = "MIT License"
-                        url = "https://opensource.org/license/mit"
-                    }
-                }
-                scm {
-                    connection = "scm:git:git://github.com/rafaelbfs/tfxtras.git"
-                    developerConnection = "scm:git:ssh://github.com/rafaelbfs/tfxtras.git"
-                    url = "https://github.com/rafaelbfs/tfxtras/blob/main/"
-                }
-                developers {
-                    developer {
-                        id = "rafaelbfs"
-                        name = "Rafael B F de Sousa"
-                        email = "rafael@terranatal.co"
-                        organization = "Terranatal Systems"
-                    }
-                }
-            }
-
-        }
-    }
-    signPublication(publicationName)
-}
+generateMvnPublication(publicationName, "java-fxtras")
 
 java {
     withJavadocJar()
