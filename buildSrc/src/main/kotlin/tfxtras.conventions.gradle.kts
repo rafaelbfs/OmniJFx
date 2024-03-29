@@ -12,19 +12,6 @@ plugins {
 repositories {
     mavenCentral()
 }
-/* publishing {
-    repositories {
-        maven {
-            val releaseRepoURL = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            val snapshotRepoURL = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            url = if (version.toString().endsWith("SNAPSHOT")) snapshotRepoURL else releaseRepoURL
-            credentials {
-                username = providers.gradleProperty("ossrh.username").get()
-                password = providers.gradleProperty("ossrh.password").get()
-            }
-        }
-    }
-} */
 
 nexusPublishing {
     repositories {
@@ -39,7 +26,7 @@ nexusPublishing {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
     withJavadocJar()
     withSourcesJar()

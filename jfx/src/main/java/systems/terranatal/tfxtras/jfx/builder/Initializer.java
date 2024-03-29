@@ -16,12 +16,23 @@ import java.util.function.Supplier;
  * @param <N> any instance of {@link Node}
  */
 public class Initializer<N extends Node> implements Supplier<N> {
+    /**
+     * The instance that this initializer holds
+     */
     protected final N instance;
 
+    /**
+     * Constructor to that takes an instance of {@link Node}
+     * @param instance the instance of {@link Node} to be initialized
+     */
     public Initializer(N instance) {
         this.instance = instance;
     }
 
+    /**
+     * Allows the user to pass a {@link Supplier} of {@link Node}s
+     * @param supplier the {@link Supplier} that this initializer will call
+     */
     public Initializer(Supplier<N> supplier) {
         this.instance = supplier.get();
     }
@@ -86,6 +97,10 @@ public class Initializer<N extends Node> implements Supplier<N> {
         return this;
     }
 
+    /**
+     * Implementation which allows this class to be used as a {@link Supplier}
+     * @return the JavaFX component instance that this {@link Initializer} holds
+     */
     @Override
     public N get() {
         return instance;
