@@ -1,0 +1,8 @@
+--add-opens
+  javafx.graphics/com.sun.javafx.application=org.testfx
+
+--add-modules
+  org.junit.jupiter.api,javafx.graphics,testfx.junit5
+
+--add-reads
+  tfxtras=org.junit.jupiter.api,testfx.junit5
