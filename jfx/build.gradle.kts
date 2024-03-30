@@ -9,7 +9,7 @@ plugins {
     id("org.javamodularity.moduleplugin") version "1.8.12"
     signing
 }
-val testFxVer = "4.0.16-alpha"
+val testFxVer = "4.0.17"
 val publicationName = "Jfx"
 
 group = "systems.terranatal.tfxtras"
