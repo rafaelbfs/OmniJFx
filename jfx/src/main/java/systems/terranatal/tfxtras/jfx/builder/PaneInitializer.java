@@ -10,10 +10,19 @@ import java.util.function.Supplier;
  * @param <P> a subtype of {@link Pane}
  */
 public class PaneInitializer<P extends Pane> extends Initializer<P> {
+    /**
+     * Constructs an initializer with the given instance
+     * @param instance the instance to be initialized
+     */
     public PaneInitializer(P instance) {
         super(instance);
     }
 
+    /**
+     * Does the same as {@link PaneInitializer#PaneInitializer(Pane)} but with a
+     * {@link Supplier} instead
+     * @param supplier the {@link Supplier}, which can even be an object of this class
+     */
     public PaneInitializer(Supplier<P> supplier) {
         super(supplier);
     }
