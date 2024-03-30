@@ -13,18 +13,22 @@ import org.gradle.kotlin.dsl.getByType
 import org.gradle.plugins.signing.Sign
 import org.gradle.plugins.signing.SigningExtension
 
-typealias SigningExtFun = SigningExtension.() -> MutableList<Sign>
+internal fun Project.allSignParametersPresent(): Boolean {
+  val signKeyId = providers.gradleProperty("signing.keyId").isPresent
+  val signKeyringFile = providers.gradleProperty("signing.secretKeyRingFile").isPresent
+  val signKeyPassword = providers.gradleProperty("signing.password").isPresent
+
+  return signKeyId && signKeyringFile && signKeyPassword
+}
+
 
 fun Project.signPublication(publicationName: String) {
-  val signKeyId = providers.gradleProperty("signing.keyId").get()
-  val signKeyringFile = providers.gradleProperty("signing.secretKeyRingFile").get()
-  val signKeyPassword = providers.gradleProperty("signing.password").get()
+  if (!allSignParametersPresent()) {
+    return
+  }
 
   return signing {
-    if (signKeyId.isNotBlank() && signKeyringFile.isNotBlank() && signKeyPassword.isNotBlank()) {
-      //useInMemoryPgpKeys(signKeyId, signKeyringFile, signKeyPassword)
       sign(extensions.getByType<PublishingExtension>().publications[publicationName])
-    }
   }
 }
 
@@ -33,6 +37,9 @@ fun MavenPublication.createMvnPublicationWithPom(name: String) {
 }
 
 fun Project.generateMvnPublication(publicationName: String, bundleName: String) {
+  if (!allSignParametersPresent()) {
+    return
+  }
   publishing {
     publications {
       create<MavenPublication>(publicationName) {

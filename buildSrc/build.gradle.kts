@@ -1,18 +1,18 @@
 plugins {
-    `kotlin-dsl`
-    kotlin("jvm") version "1.9.20"
+  `kotlin-dsl`
+  kotlin("jvm") version "1.9.20"
 }
 
 group = "systems.terranatal.tfxtras"
 version = rootProject.version
 
 repositories {
-    mavenCentral()
-    maven {
-        url = uri("https://plugins.gradle.org/m2/")
-    }
+  mavenCentral()
+  maven {
+    url = uri("https://plugins.gradle.org/m2/")
+  }
 }
 
 dependencies {
-    implementation("io.github.gradle-nexus:publish-plugin:2.0.0-rc-2")
+  implementation("io.github.gradle-nexus:publish-plugin:2.0.0-rc-2")
 }
