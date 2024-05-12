@@ -4,3 +4,4 @@ plugins {
 rootProject.name = "tfxtras"
 include("jfx")
 include("kfx")
+include("internationalization")

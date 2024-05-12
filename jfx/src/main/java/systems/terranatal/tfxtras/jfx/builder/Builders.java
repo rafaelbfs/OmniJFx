@@ -7,6 +7,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -103,4 +104,13 @@ public interface Builders {
     static PaneInitializer<VBox> vBox() {
         return pane(new VBox());
     }
+
+    /**
+     * Creates an {@link Initializer} containing a {@link StackPane}
+     * @return a {@link PaneInitializer} containing a {@link StackPane}
+     */
+    static PaneInitializer<StackPane> stackPane() {
+        return pane(new StackPane());
+    }
+
 }

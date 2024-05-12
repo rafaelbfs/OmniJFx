@@ -6,7 +6,9 @@ import javafx.scene.control.Label
 import javafx.scene.control.TextField
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
+import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
+import systems.terranatal.tfxtras.kfx.Helpers.node
 import systems.terranatal.tfxtras.kfx.extensions.apply
 import systems.terranatal.tfxtras.kfx.extensions.child
 
@@ -31,7 +33,22 @@ object Helpers
    *
    * @return a [Button] with the text and with [init] logic applied
    */
-  fun button(label: String, init: Button.() -> Unit): Button = Button(label).apply(init)
+  fun button(label: String, init: Button.() -> Unit): Button = node(Button(label), init)
+
+  /**
+   * Creates a label with a text
+   * @param lbl the text on the label
+   * @return a [Label] with the given text
+   */
+  fun label(lbl: String): Label = Label(lbl)
+
+  /**
+   * Creates a label with a text and extra init logic
+   * @param lbl the text on the label
+   * @param init the extra logic in the label initialization
+   * @return a [Label] with the given text
+   */
+  fun label(lbl: String, init: Label.() -> Unit): Label = node(Label(lbl), init)
 }
 
 object FxTextField {
@@ -42,8 +59,7 @@ object FxTextField {
    *
    * @return a [TextField] with the initial text set and [init] applied to it
    */
-  fun withInitialText(initialText: String, init: TextField.() -> Unit) =
-    TextField().apply(init)
+  fun withInitialText(initialText: String, init: TextField.() -> Unit) = node(TextField(initialText), init)
 
   /**
    * Creates a text box with a label on its left and executes some logic
@@ -73,4 +89,6 @@ object Layouts {
   fun hbox(init: HBox.() -> Unit): HBox = pane(HBox(), init)
 
   fun vbox(init: VBox.() -> Unit): VBox = pane(VBox(), init)
+
+  fun stackPane(init: StackPane.() -> Unit): StackPane = pane(StackPane(), init)
 }
