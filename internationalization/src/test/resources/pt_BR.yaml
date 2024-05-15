@@ -1,0 +1,9 @@
+
+application:
+    - greetings:
+          goodMorning: "Bom dia"
+          goodAfternoon: Boa tarde
+          goodEvening: Boa noite
+          hello: Olá
+          formal: Saudações
+    - language: "Português brasileiro"

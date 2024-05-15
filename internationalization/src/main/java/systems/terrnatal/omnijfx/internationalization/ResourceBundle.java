@@ -2,6 +2,8 @@ package systems.terrnatal.omnijfx.internationalization;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -16,9 +18,12 @@ public abstract class ResourceBundle {
   protected final Locale locale;
   protected final Map<String, String> resources;
 
-  public ResourceBundle(Map<String, String> resources, Locale locale) {
+  protected final Charset charset;
+
+  public ResourceBundle(Map<String, String> resources, Locale locale, Charset charset) {
     this.locale = locale;
     this.resources = resources;
+    this.charset = charset;
   }
 
   /**
@@ -55,11 +60,15 @@ public abstract class ResourceBundle {
   }
 
   public static class PropertyResourceBundle extends ResourceBundle {
-    public PropertyResourceBundle(Reader reader, Locale locale) throws IOException {
-      super(new HashMap<>(), locale);
+    public PropertyResourceBundle(Reader reader, Locale locale, Charset charset) throws IOException {
+      super(new HashMap<>(), locale, charset);
       var p = new Properties();
       p.load(reader);
-      p.forEach((key, value) -> resources.put(key.toString(), value.toString()));
+      p.forEach((key, value) -> {
+        if (key.toString().matches("^[a-z]\\w*(\\.[a-z]\\w*)*")) {
+          resources.put(key.toString(), value.toString());
+        }
+      });
     }
   }
 }
