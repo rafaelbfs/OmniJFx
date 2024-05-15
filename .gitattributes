@@ -1,0 +1,7 @@
+# Set source files as UTF-8 text
+
+*.java text working-tree-encoding=UTF-8 
+*.properties text working-tree-encoding=UTF-8
+*.kt text working-tree-encoding=UTF-8
+*.md text working-tree-encoding=UTF-8
+
