@@ -33,5 +33,5 @@ java {
 }
 
 tasks.withType<JavaCompile>() {
-  options.encoding = "UTF-8 BOM"
+  options.encoding = "UTF-8"
 }

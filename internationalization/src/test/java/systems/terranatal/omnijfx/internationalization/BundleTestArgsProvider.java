@@ -1,4 +1,4 @@
-package systems.terrnatal.omnijfx.internationalization;
+package systems.terranatal.omnijfx.internationalization;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;

@@ -1,9 +1,8 @@
-package systems.terrnatal.omnijfx.internationalization;
+package systems.terranatal.omnijfx.internationalization;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;

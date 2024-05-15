@@ -1,7 +1,7 @@
-package systems.terrnatal.omnijfx.internationalization.yaml;
+package systems.terranatal.omnijfx.internationalization.yaml;
 
 import org.yaml.snakeyaml.Yaml;
-import systems.terrnatal.omnijfx.internationalization.ResourceBundle;
+import systems.terranatal.omnijfx.internationalization.ResourceBundle;
 
 import java.io.Reader;
 import java.nio.charset.Charset;

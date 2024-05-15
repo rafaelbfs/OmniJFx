@@ -1,4 +1,4 @@
-package systems.terrnatal.omnijfx.internationalization;
+package systems.terranatal.omnijfx.internationalization;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
