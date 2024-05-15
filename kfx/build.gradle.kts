@@ -1,8 +1,11 @@
 plugins {
     kotlin("jvm") version "1.9.20"
+    `maven-publish`
+    id("org.openjfx.javafxplugin") version "0.1.0"
+    signing
 }
 
-group = "systems.terranatal.tfxtras"
+group = "systems.terranatal.omnijfx"
 version = "0.2.1-SNAPSHOT"
 
 repositories {
@@ -18,4 +21,8 @@ tasks.test {
 }
 kotlin {
     jvmToolchain(21)
+}
+javafx {
+    version = "21.0.2"
+    modules("javafx.controls", "javafx.graphics")
 }

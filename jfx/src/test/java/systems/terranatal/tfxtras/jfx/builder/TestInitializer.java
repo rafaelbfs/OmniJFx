@@ -1,4 +1,4 @@
-package systems.terranatal.tfxtras.jfx.builder;
+package systems.terranatal.omnijfx.jfx.builder;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
-import systems.terranatal.tfxtras.jfx.datautils.Converters;
+import systems.terranatal.omnijfx.jfx.datautils.Converters;
 
 import java.util.function.Function;
 

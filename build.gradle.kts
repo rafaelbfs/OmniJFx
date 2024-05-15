@@ -1,8 +1,8 @@
 plugins {
-    id("tfxtras.conventions")
+    id("omnijfx.conventions")
 }
 
-group = "systems.terranatal.tfxtras"
+group = "systems.terranatal.omnijfx"
 version = "0.2.1-SNAPSHOT"
 
 repositories {

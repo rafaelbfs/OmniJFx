@@ -3,7 +3,7 @@ plugins {
   kotlin("jvm") version "1.9.20"
 }
 
-group = "systems.terranatal.tfxtras"
+group = "systems.terranatal.omnijfx"
 version = rootProject.version
 
 repositories {

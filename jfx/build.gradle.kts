@@ -12,7 +12,7 @@ plugins {
 val testFxVer = "4.0.17"
 val publicationName = "Jfx"
 
-group = "systems.terranatal.tfxtras"
+group = "systems.terranatal.omnijfx"
 version = rootProject.version
 
 repositories {
