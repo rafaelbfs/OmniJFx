@@ -10,8 +10,11 @@ repositories {
 }
 
 dependencies {
+    implementation("org.yaml:snakeyaml:2.2")
+
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
 }
 
 tasks.test {

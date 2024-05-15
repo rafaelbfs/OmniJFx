@@ -1,4 +1,4 @@
-package systems.terrnatal.omnijfx.internationalization;
+package systems.terranatal.omnijfx.internationalization;
 
 public class ResourceLoadingException extends RuntimeException {
   public final String resourceName;

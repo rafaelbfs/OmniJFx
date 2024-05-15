@@ -1,4 +1,4 @@
-package systems.terrnatal.omnijfx.internationalization;
+package systems.terranatal.omnijfx.internationalization;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,7 +43,11 @@ public interface Loader {
    * Builds a {@link Reader} for loading the contents of a resource file within the classpath.
    */
   class Classpath implements Loader {
-    private final ClassLoader userClassLoader;
+    /**
+     * A {@link ClassLoader} provided by the user through constructor parameters.
+     * Defaults to <code>Thread.currentThread().getContextClassLoader()</code> in the default constructor
+     */
+    public final ClassLoader userClassLoader;
 
     /**
      * Initializes this Loader with an user-provided {@link ClassLoader}
