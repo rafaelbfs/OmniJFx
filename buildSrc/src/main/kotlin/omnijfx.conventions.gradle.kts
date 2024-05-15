@@ -1,7 +1,3 @@
-import org.gradle.kotlin.dsl.kotlin
-import org.gradle.kotlin.dsl.`kotlin-dsl`
-import org.gradle.kotlin.dsl.version
-
 plugins {
   id("java")
   `maven-publish`

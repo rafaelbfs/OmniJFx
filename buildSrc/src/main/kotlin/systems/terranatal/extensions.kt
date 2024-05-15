@@ -32,10 +32,6 @@ fun Project.signPublication(publicationName: String) {
   }
 }
 
-fun MavenPublication.createMvnPublicationWithPom(name: String) {
-
-}
-
 fun Project.generateMvnPublication(publicationName: String, bundleName: String) {
   if (!allSignParametersPresent()) {
     return
@@ -48,7 +44,7 @@ fun Project.generateMvnPublication(publicationName: String, bundleName: String) 
         pom {
           name.set(bundleName)
           description.set("Utility helpers to create JavaFX components using Java")
-          url.set("https://github.com/rafaelbfs/tfxtras/jfx")
+          url.set("https://github.com/rafaelbfs/omnijfx/jfx")
           licenses {
             license {
               name.set("MIT License")
@@ -56,9 +52,9 @@ fun Project.generateMvnPublication(publicationName: String, bundleName: String) 
             }
           }
           scm {
-            connection.set("scm:git:git://github.com/rafaelbfs/tfxtras.git")
-            developerConnection.set("scm:git:ssh://github.com/rafaelbfs/tfxtras.git")
-            url.set("https://github.com/rafaelbfs/tfxtras/blob/main/")
+            connection.set("scm:git:git://github.com/rafaelbfs/omnijfx.git")
+            developerConnection.set("scm:git:ssh://github.com/rafaelbfs/omnijfx.git")
+            url.set("https://github.com/rafaelbfs/omnijfx/blob/main/")
           }
           developers {
             developer {

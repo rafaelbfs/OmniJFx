@@ -1,4 +1,4 @@
-package systems.terranatal.tfxtras.kfx.extensions
+package systems.terranatal.omnijfx.kfx.extensions
 
 import javafx.scene.Node
 import javafx.scene.layout.Pane

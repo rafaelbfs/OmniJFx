@@ -5,4 +5,4 @@
   org.junit.jupiter.api,javafx.graphics,testfx.junit5
 
 --add-reads
-  tfxtras=org.junit.jupiter.api,testfx.junit5
+  omnijfx=org.junit.jupiter.api,testfx.junit5

@@ -5,7 +5,7 @@ plugins {
     signing
 }
 
-group = "systems.terranatal.tfxtras"
+group = "systems.terranatal.omnijfx"
 version = "0.2.1-SNAPSHOT"
 
 repositories {

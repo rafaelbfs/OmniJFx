@@ -1,4 +1,4 @@
-package systems.terranatal.tfxtras.kfx
+package systems.terranatal.omnijfx.kfx
 
 import javafx.scene.Node
 import javafx.scene.control.Button
@@ -8,9 +8,9 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
-import systems.terranatal.tfxtras.kfx.Helpers.node
-import systems.terranatal.tfxtras.kfx.extensions.apply
-import systems.terranatal.tfxtras.kfx.extensions.child
+import systems.terranatal.omnijfx.kfx.Helpers.node
+import systems.terranatal.omnijfx.kfx.extensions.apply
+import systems.terranatal.omnijfx.kfx.extensions.child
 
 /**
  * Object with helper methods to instantiate common components

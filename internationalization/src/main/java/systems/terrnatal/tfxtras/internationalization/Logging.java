@@ -1,4 +1,4 @@
-package systems.terrnatal.tfxtras.internationalization;
+package systems.terrnatal.omnijfx.internationalization;
 
 import java.util.logging.Logger;
 

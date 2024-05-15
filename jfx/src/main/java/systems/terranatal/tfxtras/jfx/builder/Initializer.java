@@ -1,4 +1,4 @@
-package systems.terranatal.tfxtras.jfx.builder;
+package systems.terranatal.omnijfx.jfx.builder;
 
 import javafx.beans.property.Property;
 import javafx.beans.value.ObservableValue;
