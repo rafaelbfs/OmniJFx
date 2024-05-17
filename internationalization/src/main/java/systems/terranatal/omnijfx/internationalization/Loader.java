@@ -65,7 +65,7 @@ public interface Loader {
     }
 
     /**
-     * Loads the resource using the {@link this#userClassLoader}
+     * Loads the resource using the {@code userClassLoader}
      * @param fileName the name of the file to be loaded
      * @param charset the encoding scheme of the file
      * @return the Reader to the file contents

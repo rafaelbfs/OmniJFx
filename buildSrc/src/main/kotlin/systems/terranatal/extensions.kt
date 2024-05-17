@@ -3,15 +3,11 @@ package systems.terranatal
 import gradle.kotlin.dsl.accessors._ef75a60ead13a537a1cba035154c8ec4.publishing
 import gradle.kotlin.dsl.accessors._ef75a60ead13a537a1cba035154c8ec4.signing
 import org.gradle.api.Project
-import org.gradle.api.publish.PublicationContainer
 import org.gradle.api.publish.PublishingExtension
-import org.gradle.api.publish.maven.MavenPom
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
-import org.gradle.plugins.signing.Sign
-import org.gradle.plugins.signing.SigningExtension
 
 internal fun Project.allSignParametersPresent(): Boolean {
   val signKeyId = providers.gradleProperty("signing.keyId").isPresent

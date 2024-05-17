@@ -1,7 +1,9 @@
 import systems.terranatal.generateMvnPublication
 
 plugins {
-    id("java")
+    `java-library`
+    `maven-publish`
+    signing
 }
 
 group = "systems.terranatal.omnijfx"
