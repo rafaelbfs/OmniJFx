@@ -1,6 +1,7 @@
+/*
 BSD 3 License
 
-Copyright © 2024, Rafael Barros Felix de Sousa @ Terranatal Systems
+Copyright (c) 2024, Rafael Barros Felix de Sousa @ Terranatal Systems
 
 All rights reserved.
 
@@ -27,3 +28,16 @@ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/**
+ * This module can load internationalized resources from {@code .yaml} and {@code .properties} files.
+ * Strings can be messages following the format specified by {@link java.text.MessageFormat}
+ *
+ */
+
+module omnijfx.internationalization {
+  requires org.yaml.snakeyaml;
+  opens systems.terranatal.omnijfx.internationalization;
+  opens systems.terranatal.omnijfx.internationalization.yaml;
+}
