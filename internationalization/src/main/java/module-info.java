@@ -38,6 +38,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 module omnijfx.internationalization {
   requires org.yaml.snakeyaml;
+
   opens systems.terranatal.omnijfx.internationalization;
   opens systems.terranatal.omnijfx.internationalization.yaml;
+
+  exports systems.terranatal.omnijfx.internationalization;
+  exports systems.terranatal.omnijfx.internationalization.yaml;
 }

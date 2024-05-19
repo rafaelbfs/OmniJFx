@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024, Rafael Barros Felix de Sousa @ Terranatal Systems
+ * Copyright (c) 2024, Rafael Barros Felix de Sousa @ Terranatal Systems
  *
  * All rights reserved.
  *
@@ -11,7 +11,7 @@
  *     * Redistributions in binary form must reproduce the above copyright notice,
  *       this list of conditions and the following disclaimer in the documentation
  *       and/or other materials provided with the distribution.
- *     * Neither the name of {{ project }} nor the names of its contributors
+ *     * Neither the name of omnijfx nor the names of its contributors
  *       may be used to endorse or promote products derived from this software
  *       without specific prior written permission.
  *
