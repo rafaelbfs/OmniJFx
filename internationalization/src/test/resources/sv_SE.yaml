@@ -1,0 +1,9 @@
+
+application:
+    greetings:
+        goodMorning: "God morgon"
+        goodAfternoon: "God eftermiddag"
+        goodEvening: "God kväll"
+        hello: "Hallå!"
+        formal: Hälsningar
+    language: Svenska (Sverige)

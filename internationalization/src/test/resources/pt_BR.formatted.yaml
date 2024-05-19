@@ -1,0 +1,10 @@
+
+messages:
+
+  #!systems.terranatal.omnijfx.internationalization.yaml.testdata.SampleWithFormattedMessage.RawMessages
+  raw:
+    helloWorld: Olá Mundo!
+
+  #!systems.terranatal.omnijfx.internationalization.yaml.testdata.SampleWithFormattedMessage.FormattedMessages
+  formatted:
+    unitsRemaining: Você tem {0,choice,0#nenhuma unidade mais|1#uma unidade restante|1<{0,number,integer} unidades restantes}.

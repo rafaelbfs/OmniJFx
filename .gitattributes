@@ -5,3 +5,5 @@
 *.kt text working-tree-encoding=UTF-8
 *.md text working-tree-encoding=UTF-8
 
+internationalization/src/test/resources/UTF-16 text working-tree-encoding=UTF-16BE
+

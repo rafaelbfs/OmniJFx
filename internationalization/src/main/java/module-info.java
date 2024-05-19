@@ -1,6 +1,7 @@
+/*
 BSD 3 License
 
-Copyright © 2024, Rafael Barros Felix de Sousa @ Terranatal Systems
+Copyright (c) 2024, Rafael Barros Felix de Sousa @ Terranatal Systems
 
 All rights reserved.
 
@@ -12,7 +13,7 @@ are permitted provided that the following conditions are met:
     * Redistributions in binary form must reproduce the above copyright notice,
       this list of conditions and the following disclaimer in the documentation
       and/or other materials provided with the distribution.
-    * Neither the name of omnijfx nor the names of its contributors
+    * Neither the name of {{ project }} nor the names of its contributors
       may be used to endorse or promote products derived from this software
       without specific prior written permission.
 
@@ -27,3 +28,24 @@ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+import java.nio.charset.Charset;
+
+/**
+ * This module can load internationalized resources from {@code .yaml} and {@code .properties} files.
+ * Strings can be messages following the format specified by {@link java.text.MessageFormat} an example of
+ * its usage can be found at the test cases in
+ * {@code TestObjectYamlResourceBundle#testFormattedMessages(String, Charset, String, String, String, String)}
+ *
+ */
+
+module omnijfx.internationalization {
+  requires org.yaml.snakeyaml;
+
+  opens systems.terranatal.omnijfx.internationalization;
+  opens systems.terranatal.omnijfx.internationalization.yaml;
+
+  exports systems.terranatal.omnijfx.internationalization;
+  exports systems.terranatal.omnijfx.internationalization.yaml;
+}
