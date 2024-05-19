@@ -30,9 +30,13 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import java.nio.charset.Charset;
+
 /**
  * This module can load internationalized resources from {@code .yaml} and {@code .properties} files.
- * Strings can be messages following the format specified by {@link java.text.MessageFormat}
+ * Strings can be messages following the format specified by {@link java.text.MessageFormat} an example of
+ * its usage can be found at the test cases in
+ * {@code TestObjectYamlResourceBundle#testFormattedMessages(String, Charset, String, String, String, String)}
  *
  */
 
