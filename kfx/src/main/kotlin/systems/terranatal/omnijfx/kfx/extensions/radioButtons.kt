@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024, Rafael Barros Felix de Sousa @ Terranatal Systems
+ * Copyright (c) 2024, Rafael Barros Felix de Sousa @ Terranatal Systems
  *
  * All rights reserved.
  *
@@ -11,7 +11,7 @@
  *     * Redistributions in binary form must reproduce the above copyright notice,
  *       this list of conditions and the following disclaimer in the documentation
  *       and/or other materials provided with the distribution.
- *     * Neither the name of {{ project }} nor the names of its contributors
+ *     * Neither the name of omnijfx nor the names of its contributors
  *       may be used to endorse or promote products derived from this software
  *       without specific prior written permission.
  *
@@ -28,39 +28,34 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-plugins {
-    kotlin("jvm") version "1.9.20"
-    `maven-publish`
-    id("org.openjfx.javafxplugin") version "0.1.0"
-    signing
+package systems.terranatal.omnijfx.kfx.extensions
+
+import javafx.scene.control.RadioButton
+import javafx.scene.control.ToggleGroup
+
+fun toggleGroup(init: ToggleGroup.() -> Unit): ToggleGroup {
+  val tg = ToggleGroup()
+  init(tg)
+  return tg
 }
 
-group = "systems.terranatal.omnijfx"
-version = rootProject.version
-val testFxVer = "4.0.17"
-
-repositories {
-    mavenCentral()
+fun ToggleGroup.addRadioButton(rb: RadioButton) {
+  rb.toggleGroup = this
 }
 
-dependencies {
-    implementation(project(":internationalization"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.8.1")
+object RadioButtons {
 
+  fun radioButton(text: String) = RadioButton(text)
 
-    testImplementation("org.testfx:testfx-core:$testFxVer")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.1")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
-    testImplementation("org.testfx:testfx-junit5:$testFxVer")
-}
+  fun radioButton(text: String, init: RadioButton.() -> Unit): RadioButton {
+    val rb = radioButton(text)
+    init(rb)
+    return rb
+  }
 
-tasks.test {
-    useJUnitPlatform()
-}
-kotlin {
-    jvmToolchain(21)
-}
-javafx {
-    version = "21.0.2"
-    modules("javafx.controls", "javafx.graphics")
+  fun radioButton(init: RadioButton.() -> Unit): RadioButton {
+    val rb = RadioButton()
+    init(rb)
+    return rb
+  }
 }

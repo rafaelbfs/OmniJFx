@@ -112,13 +112,40 @@ object FxTextField {
     Layouts.vbox { child(Label(title)); child(TextField().apply(init)) }
 }
 
+/**
+ * Object to initialize a [Pane] and any of its subclasses
+ */
 object Layouts {
-  fun <P: Pane> pane(pane: P, init: P.() -> Unit): P =
-    pane.apply(init)
+  /**
+   * Initializes any subclass of [Pane].
+   * @param pane the instance of [Pane] to be initialized
+   * @param init the initializing function
+   *
+   * @return the same [pane] passed as argument with its fields initialized by the [init] function
+   */
+  fun <P: Pane> pane(pane: P, init: P.() -> Unit): P = pane.apply(init)
 
+  /**
+   * Specialized method to initialize an [HBox]
+   * @param init the initializer function
+   *
+   * @return an [HBox] initialized by [init]
+   */
   fun hbox(init: HBox.() -> Unit): HBox = pane(HBox(), init)
 
+  /**
+   * Specialized method to initialize a [VBox]
+   * @param init the initializer function
+   *
+   * @return a [VBox] initialized by [init]
+   */
   fun vbox(init: VBox.() -> Unit): VBox = pane(VBox(), init)
 
+  /**
+   * Specialized method to initialize a [StackPane]
+   * @param init the initializer function
+   *
+   * @return a [StackPane] initialized by [init]
+   */
   fun stackPane(init: StackPane.() -> Unit): StackPane = pane(StackPane(), init)
 }
