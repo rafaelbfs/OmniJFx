@@ -33,12 +33,25 @@ package systems.terranatal.omnijfx.kfx.extensions
 import javafx.scene.control.RadioButton
 import javafx.scene.control.ToggleGroup
 
+/**
+ * Instantiates a [ToggleGroup] and applies logic in the [init] block where the [RadioButton]s can
+ * be added to it by using [addRadioButton]
+ *
+ * @param init the initialization block
+ *
+ * @return the instantiated [ToggleGroup] with [init] applied to it
+ */
 fun toggleGroup(init: ToggleGroup.() -> Unit): ToggleGroup {
   val tg = ToggleGroup()
   init(tg)
   return tg
 }
 
+/**
+ * Extension method which allows the user to add a [RadioButton] directly into the receiving [ToggleGroup].
+ *
+ * @param rb the [RadioButton] to be added to **this** [ToggleGroup]
+ */
 fun ToggleGroup.addRadioButton(rb: RadioButton) {
   rb.toggleGroup = this
 }
@@ -53,7 +66,7 @@ object RadioButtons {
     return rb
   }
 
-  fun radioButton(init: RadioButton.() -> Unit): RadioButton {
+  operator fun invoke(init: RadioButton.() -> Unit): RadioButton {
     val rb = RadioButton()
     init(rb)
     return rb

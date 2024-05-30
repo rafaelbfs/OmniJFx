@@ -36,7 +36,7 @@ import javafx.scene.layout.Pane
 /**
  * Applies [initializer] to the [Node] receiver.
  *
- * @param initializer trhe initializer
+ * @param initializer the initializer
  *
  * @return the receiving [Node] itself so this function can be chained just after a constructor call
  */
