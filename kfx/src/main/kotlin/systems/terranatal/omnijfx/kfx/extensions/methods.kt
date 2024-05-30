@@ -33,12 +33,34 @@ package systems.terranatal.omnijfx.kfx.extensions
 import javafx.scene.Node
 import javafx.scene.layout.Pane
 
+/**
+ * Applies [initializer] to the [Node] receiver.
+ *
+ * @param initializer trhe initializer
+ *
+ * @return the receiving [Node] itself so this function can be chained just after a constructor call
+ */
 fun <N: Node> N.apply(initializer: N.() -> Unit): N {
   initializer(this)
   return this
 }
 
+/**
+ * Extension method for any subclass of [Pane] to add a child to itself
+ *
+ * @param node the child [Node] to be added
+ *
+ * @return the receiver [Pane] itself
+ */
 fun <P: Pane, N: Node> P.child(node: N): P {
   children.add(node)
   return this
 }
+
+/**
+ * Applies [initializer] to the [Node] receiver, since it overloads the invocation operator
+ * the user can simply do `nodeInstance {initialization logic}`.
+ *
+ * @param initializer the initializer
+ */
+operator fun <N: Node> N.invoke(initializer: N.() -> Unit) = initializer(this)

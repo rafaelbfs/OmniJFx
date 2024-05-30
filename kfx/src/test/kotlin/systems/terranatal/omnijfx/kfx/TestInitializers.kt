@@ -34,7 +34,6 @@ import javafx.beans.value.ChangeListener
 import javafx.scene.Scene
 import javafx.scene.control.RadioButton
 import javafx.scene.control.TextField
-import javafx.scene.layout.GridPane
 import javafx.stage.Stage
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -44,7 +43,7 @@ import org.testfx.framework.junit5.Start
 import systems.terranatal.omnijfx.internationalization.NumericParsingUtils
 import systems.terranatal.omnijfx.kfx.extensions.RadioButtons.radioButton
 import systems.terranatal.omnijfx.kfx.extensions.addRadioButton
-import systems.terranatal.omnijfx.kfx.extensions.apply
+import systems.terranatal.omnijfx.kfx.extensions.invoke
 import systems.terranatal.omnijfx.kfx.extensions.toggleGroup
 import kotlin.math.pow
 
@@ -76,7 +75,7 @@ class TestInitializers {
 
     val toggleGroup = toggleGroup { addRadioButton(monthly); addRadioButton(yearly); monthly.isSelected = true }
 
-    val grid = GridPane().apply {
+    val grid = Panes.grid {
       addColumn(0, monthly, monthlyValue)
       addColumn(1, yearly, yearlyValue)
       hgap = 6.0
@@ -90,10 +89,10 @@ class TestInitializers {
   fun start(stage: Stage) {
     monthly = radioButton("Monthly Interest (%)")
     yearly = radioButton("Yearly Interest (%)")
-    monthlyValue = TextField().apply {
+    monthlyValue = TextFields {
       disableProperty().bind(monthly.selectedProperty().not())
     }
-    yearlyValue = TextField().apply {
+    yearlyValue = TextFields {
       disableProperty().bind(yearly.selectedProperty().not())
     }
 
@@ -105,7 +104,7 @@ class TestInitializers {
   @Test
   fun testComponentsInitialization() {
     Assertions.assertTrue(monthly.isSelected)
-    monthlyValue.text = "1.05"
+    monthlyValue { text = "1.05" }
     Assertions.assertEquals("13.35", yearlyValue.text)
 
     yearly.isSelected = true
