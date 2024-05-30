@@ -36,14 +36,22 @@ plugins {
 }
 
 group = "systems.terranatal.omnijfx"
-version = "0.2.1-SNAPSHOT"
+version = rootProject.version
+val testFxVer = "4.0.17"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    implementation(project(":internationalization"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:1.8.1")
+
+
+    testImplementation("org.testfx:testfx-core:$testFxVer")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    testImplementation("org.testfx:testfx-junit5:$testFxVer")
 }
 
 tasks.test {

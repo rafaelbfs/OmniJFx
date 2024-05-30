@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024, Rafael Barros Felix de Sousa @ Terranatal Systems
+ * Copyright (c) 2024, Rafael Barros Felix de Sousa @ Terranatal Systems
  *
  * All rights reserved.
  *
@@ -11,7 +11,7 @@
  *     * Redistributions in binary form must reproduce the above copyright notice,
  *       this list of conditions and the following disclaimer in the documentation
  *       and/or other materials provided with the distribution.
- *     * Neither the name of {{ project }} nor the names of its contributors
+ *     * Neither the name of omnijfx nor the names of its contributors
  *       may be used to endorse or promote products derived from this software
  *       without specific prior written permission.
  *
@@ -30,37 +30,45 @@
 
 package systems.terranatal.omnijfx.kfx.extensions
 
-import javafx.scene.Node
-import javafx.scene.layout.Pane
+import javafx.scene.control.RadioButton
+import javafx.scene.control.ToggleGroup
 
 /**
- * Applies [initializer] to the [Node] receiver.
+ * Instantiates a [ToggleGroup] and applies logic in the [init] block where the [RadioButton]s can
+ * be added to it by using [addRadioButton]
  *
- * @param initializer the initializer
+ * @param init the initialization block
  *
- * @return the receiving [Node] itself so this function can be chained just after a constructor call
+ * @return the instantiated [ToggleGroup] with [init] applied to it
  */
-fun <N: Node> N.apply(initializer: N.() -> Unit): N {
-  initializer(this)
-  return this
+fun toggleGroup(init: ToggleGroup.() -> Unit): ToggleGroup {
+  val tg = ToggleGroup()
+  init(tg)
+  return tg
 }
 
 /**
- * Extension method for any subclass of [Pane] to add a child to itself
+ * Extension method which allows the user to add a [RadioButton] directly into the receiving [ToggleGroup].
  *
- * @param node the child [Node] to be added
- *
- * @return the receiver [Pane] itself
+ * @param rb the [RadioButton] to be added to **this** [ToggleGroup]
  */
-fun <P: Pane, N: Node> P.child(node: N): P {
-  children.add(node)
-  return this
+fun ToggleGroup.addRadioButton(rb: RadioButton) {
+  rb.toggleGroup = this
 }
 
-/**
- * Applies [initializer] to the [Node] receiver, since it overloads the invocation operator
- * the user can simply do `nodeInstance {initialization logic}`.
- *
- * @param initializer the initializer
- */
-operator fun <N: Node> N.invoke(initializer: N.() -> Unit) = initializer(this)
+object RadioButtons {
+
+  fun radioButton(text: String) = RadioButton(text)
+
+  fun radioButton(text: String, init: RadioButton.() -> Unit): RadioButton {
+    val rb = radioButton(text)
+    init(rb)
+    return rb
+  }
+
+  operator fun invoke(init: RadioButton.() -> Unit): RadioButton {
+    val rb = RadioButton()
+    init(rb)
+    return rb
+  }
+}

@@ -34,6 +34,7 @@ import javafx.scene.Node
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
+import javafx.scene.layout.GridPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Pane
 import javafx.scene.layout.StackPane
@@ -81,7 +82,14 @@ object Helpers
   fun label(lbl: String, init: Label.() -> Unit): Label = node(Label(lbl), init)
 }
 
-object FxTextField {
+object TextFields {
+  /**
+   * Creates a text box and initializes it with the [init] function
+   * @param init the initializer function
+   *
+   * @return a [TextField] with [init] applied to it
+   */
+  operator fun invoke(init: TextField.() -> Unit): TextField = node(TextField(), init)
   /**
    * Creates a text box with the [initialText]
    * @param initialText the initial text in the component
@@ -99,7 +107,7 @@ object FxTextField {
    * @return an [HBox] with the label and the text box with [init] applied to it
    */
   fun withLabelOnTheLeft(title: String, init: TextField.() -> Unit): HBox =
-    Layouts.hbox { child(Label(title)); child(TextField().apply(init)) }
+    Panes.hbox { child(Label(title)); child(TextField().apply(init)) }
 
   /**
    * Creates a text box with a label on its left and executes some logic
@@ -109,16 +117,51 @@ object FxTextField {
    * @return a [VBox] with the label on top and the text box with [init] applied to it below
    */
   fun withLabelAbove(title: String, init: TextField.() -> Unit): VBox =
-    Layouts.vbox { child(Label(title)); child(TextField().apply(init)) }
+    Panes.vbox { child(Label(title)); child(TextField().apply(init)) }
 }
 
-object Layouts {
-  fun <P: Pane> pane(pane: P, init: P.() -> Unit): P =
-    pane.apply(init)
+/**
+ * Object to initialize a [Pane] and any of its subclasses
+ */
+object Panes {
+  /**
+   * Initializes any subclass of [Pane].
+   * @param pane the instance of [Pane] to be initialized
+   * @param init the initializing function
+   *
+   * @return the same [pane] passed as argument with its fields initialized by the [init] function
+   */
+  fun <P: Pane> pane(pane: P, init: P.() -> Unit): P = pane.apply(init)
 
+  /**
+   * Specialized method to initialize an [HBox]
+   * @param init the initializer function
+   *
+   * @return an [HBox] initialized by [init]
+   */
   fun hbox(init: HBox.() -> Unit): HBox = pane(HBox(), init)
 
+  /**
+   * Specialized method to initialize a [VBox]
+   * @param init the initializer function
+   *
+   * @return a [VBox] initialized by [init]
+   */
   fun vbox(init: VBox.() -> Unit): VBox = pane(VBox(), init)
 
-  fun stackPane(init: StackPane.() -> Unit): StackPane = pane(StackPane(), init)
+  /**
+   * Specialized method to initialize a [StackPane]
+   * @param init the initializer function
+   *
+   * @return a [StackPane] initialized by [init]
+   */
+  fun stack(init: StackPane.() -> Unit): StackPane = pane(StackPane(), init)
+
+  /**
+   * Specialized method to initialize a [GridPane]
+   * @param init the initializer function
+   *
+   * @return a [GridPane] initialized by [init]
+   */
+  fun grid(init: GridPane.() -> Unit): GridPane = pane(GridPane(), init)
 }
