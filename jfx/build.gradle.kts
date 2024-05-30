@@ -55,6 +55,8 @@ java {
 }
 
 dependencies {
+    implementation(project(":internationalization"))
+
     testImplementation("org.testfx:testfx-core:$testFxVer")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
