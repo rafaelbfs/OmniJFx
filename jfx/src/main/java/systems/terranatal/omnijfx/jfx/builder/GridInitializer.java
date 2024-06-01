@@ -27,16 +27,46 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-module omnijfx {
-    requires javafx.controls;
-    requires javafx.graphics;
-    requires omnijfx.internationalization;
-    requires java.logging;
-  //requires org.junit.jupiter.engine;
 
-    opens systems.terranatal.omnijfx.jfx.builder;
-    opens systems.terranatal.omnijfx.jfx.datautils;
+package systems.terranatal.omnijfx.jfx.builder;
 
-    exports systems.terranatal.omnijfx.jfx.builder;
-    exports systems.terranatal.omnijfx.jfx.datautils;
+import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
+public class GridInitializer extends PaneInitializer<GridPane>  {
+  public GridInitializer(GridPane instance) {
+    super(instance);
+  }
+
+  public GridInitializer(Supplier<GridPane> supplier) {
+    super(supplier);
+  }
+
+  public <N extends Node> GridPane addColumn(int colIndex, N... nodes) {
+    if (colIndex < 0 || nodes.length == 0) return instance;
+    instance.addColumn(colIndex, nodes);
+    return instance;
+  }
+
+  public <N extends Node> GridPane addColumn(int colIndex, Supplier<N>... nodes) {
+    Stream<N> stream = Stream.of(nodes).map(Supplier::get);
+    return addColumn(colIndex, stream.toArray(Node[]::new));
+  }
+
+
+  public <N extends Node> GridPane addRow(int rowIndex, N... nodes) {
+    if (rowIndex < 0 || nodes.length == 0) return instance;
+    instance.addRow(rowIndex, nodes);
+    return instance;
+  }
+
+  public <N extends Node> GridPane addRow(int rowIndex, Supplier<N>... nodes) {
+    Stream<N> stream = Stream.of(nodes).map(Supplier::get);
+    return addRow(rowIndex, stream.toArray(Node[]::new));
+  }
 }

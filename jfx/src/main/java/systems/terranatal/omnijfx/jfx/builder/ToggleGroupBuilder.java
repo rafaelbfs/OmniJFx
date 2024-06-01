@@ -27,16 +27,54 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-module omnijfx {
-    requires javafx.controls;
-    requires javafx.graphics;
-    requires omnijfx.internationalization;
-    requires java.logging;
-  //requires org.junit.jupiter.engine;
 
-    opens systems.terranatal.omnijfx.jfx.builder;
-    opens systems.terranatal.omnijfx.jfx.datautils;
+package systems.terranatal.omnijfx.jfx.builder;
 
-    exports systems.terranatal.omnijfx.jfx.builder;
-    exports systems.terranatal.omnijfx.jfx.datautils;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
+
+import java.util.function.Supplier;
+
+/**
+ * Allows the user to build a {@link ToggleGroup}
+ * @param <T> any implementation of {@link Toggle} interface
+ */
+public class ToggleGroupBuilder<T extends Toggle> implements Supplier<ToggleGroup> {
+  private final ToggleGroup group;
+
+  /**
+   * Default and only constructor
+   */
+  public ToggleGroupBuilder() {
+    this.group = new ToggleGroup();
+  }
+
+  /**
+   * Returns the {@link ToggleGroup} that this builder initialized
+   * @return the {@link ToggleGroup} that this builder initialized
+   */
+  @Override
+  public ToggleGroup get() {
+    return group;
+  }
+
+  /**
+   * Adds a component that implements {@link Toggle} interface to the {@link ToggleGroup}
+   * @param toggle a component that implements {@link Toggle}
+   * @return this builder
+   */
+  public ToggleGroupBuilder addToggle(Toggle toggle) {
+    toggle.setToggleGroup(group);
+    return this;
+  }
+
+  /**
+   * Overloaded method that accepts any {@link Supplier} of a {@link Toggle} component
+   * and adds its result to the {@link ToggleGroup}.
+   * @param toggle a {@link Supplier} of a component that implements {@link Toggle}
+   * @return this builder
+   */
+  public ToggleGroupBuilder addToggle(Supplier<T> toggle) {
+    return addToggle(toggle.get());
+  }
 }
