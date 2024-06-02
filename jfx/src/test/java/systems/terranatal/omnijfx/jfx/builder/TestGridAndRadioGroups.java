@@ -47,6 +47,9 @@ import org.testfx.framework.junit5.Start;
 import systems.terranatal.omnijfx.internationalization.NumericParsingUtils;
 import systems.terranatal.omnijfx.jfx.datautils.Converters;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -55,10 +58,11 @@ public class TestGridAndRadioGroups {
 
   private RadioButton monthly, yearly;
   private TextField monthlyRate, yearlyRate;
-  private ToggleGroup radioGroup;
+  private final NumberFormat decimalFormat = NumberFormat.getInstance();
 
   private final StringConverter<Double> stringToDouble = Converters.makeStrConverter(
-      Double::parseDouble, "%.2f"::formatted);
+      str -> NumericParsingUtils.parseUnchecked(decimalFormat, str).doubleValue(),
+          decimalFormat::format);
   private final Function<Double, Double> monthlyToYearly = mRate ->
       (Math.pow(mRate/100.0 + 1.0, 12.0) - 1.0) * 100.0;
   private final Function<Double, Double> yearlyToMonthly = yRate ->
@@ -77,6 +81,8 @@ public class TestGridAndRadioGroups {
 
   @Start
   public void start(Stage stage) {
+    decimalFormat.setMaximumFractionDigits(2);
+    decimalFormat.setMinimumFractionDigits(2);
     monthly = Builders.radioButton("Monthly Rate (%)").get();
     yearly = Builders.radioButton("Yearly Rate (%)").get();
     monthlyRate = Builders.textField("")
@@ -87,7 +93,7 @@ public class TestGridAndRadioGroups {
         makeChangeListener(yearlyRate, monthly, monthlyToYearly));
     yearlyRate.textProperty().addListener(
         makeChangeListener(monthlyRate, yearly, yearlyToMonthly));
-    radioGroup = new ToggleGroupBuilder<>()
+    var radioGroup = new ToggleGroupBuilder<>()
         .addToggle(monthly)
         .addToggle(yearly).get();
 
@@ -96,21 +102,27 @@ public class TestGridAndRadioGroups {
   }
 
   private Scene makeTestScene() {
-    var grid = Builders.gridPane();
-    grid.addColumn(0, monthly, monthlyRate);
-    grid.addColumn(1, yearly, yearlyRate);
 
-    return new Scene(grid.get(), grid.get().getWidth(), grid.get().getHeight());
+    var monthIntzr = Builders.node(monthly);
+    var monthlyRateIntzr = Builders.node(monthlyRate);
+    var grid = Builders.gridPane()
+            .addColumn(0, monthIntzr, monthlyRateIntzr)
+            .addColumn(1, yearly, yearlyRate).get();
+
+    return new Scene(grid, grid.getWidth(), grid.getHeight());
   }
 
   @Test
   public void testValues(FxRobot robot) {
+
+    var separator = Character.toString(DecimalFormatSymbols.getInstance().getDecimalSeparator());
     monthly.setSelected(true);
-    monthlyRate.setText("1.05");
-    Assertions.assertEquals("13.35", yearlyRate.getText());
+    monthlyRate.setText(stringToDouble.toString(1.05d));
+    Assertions.assertEquals(stringToDouble.toString(13.35d), yearlyRate.getText());
 
     yearly.setSelected(true);
-    yearlyRate.setText("6.18");
-    Assertions.assertEquals("0.50", monthlyRate.getText());
+    yearlyRate.setText(stringToDouble.toString(6.18d));
+    Assertions.assertFalse(monthly.isSelected());
+    Assertions.assertEquals(stringToDouble.toString(0.50d), monthlyRate.getText());
   }
 }

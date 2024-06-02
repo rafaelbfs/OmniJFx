@@ -45,6 +45,7 @@ import systems.terranatal.omnijfx.kfx.extensions.RadioButtons.radioButton
 import systems.terranatal.omnijfx.kfx.extensions.addRadioButton
 import systems.terranatal.omnijfx.kfx.extensions.invoke
 import systems.terranatal.omnijfx.kfx.extensions.toggleGroup
+import java.text.NumberFormat
 import kotlin.math.pow
 
 @ExtendWith(ApplicationExtension::class)
@@ -56,10 +57,12 @@ class TestInitializers {
   lateinit var monthlyValue: TextField
   lateinit var yearlyValue: TextField
 
+  val numberFormatter = NumberFormat.getNumberInstance()
+
   private fun makeScene(): Scene {
     monthlyValue.textProperty().addListener(ChangeListener { observable, oldValue, newValue ->
       if (monthly.isSelected && NumericParsingUtils.isParseable(newValue)) {
-        var rate = newValue.toDouble()
+        var rate = numberFormatter.parse(newValue).toDouble()
         rate = ((1 + rate/100).pow(12) - 1) * 100
         yearlyValue.text = "%.2f".format(rate)
       }
@@ -67,7 +70,7 @@ class TestInitializers {
 
     yearlyValue.textProperty().addListener(ChangeListener { observable, oldValue, newValue ->
       if (yearly.isSelected && NumericParsingUtils.isParseable(newValue)) {
-        var rate = newValue.toDouble()
+        var rate = numberFormatter.parse(newValue).toDouble()
         rate = ((1 + rate/100).pow(1.0/12.0) - 1) * 100
         monthlyValue.text = "%.2f".format(rate)
       }
@@ -87,6 +90,8 @@ class TestInitializers {
 
   @Start
   fun start(stage: Stage) {
+    numberFormatter.maximumFractionDigits = 2
+    numberFormatter.minimumFractionDigits = 2
     monthly = radioButton("Monthly Interest (%)")
     yearly = radioButton("Yearly Interest (%)")
     monthlyValue = TextFields {
@@ -104,12 +109,12 @@ class TestInitializers {
   @Test
   fun testComponentsInitialization() {
     Assertions.assertTrue(monthly.isSelected)
-    monthlyValue { text = "1.05" }
-    Assertions.assertEquals("13.35", yearlyValue.text)
+    monthlyValue { text = numberFormatter.format(1.05) }
+    Assertions.assertEquals(numberFormatter.format(13.35), yearlyValue.text)
 
     yearly.isSelected = true
 
-    yearlyValue.text = "6.18"
-    Assertions.assertEquals("0.50", monthlyValue.text)
+    yearlyValue.text = numberFormatter.format(6.18)
+    Assertions.assertEquals(numberFormatter.format(0.50), monthlyValue.text)
   }
 }

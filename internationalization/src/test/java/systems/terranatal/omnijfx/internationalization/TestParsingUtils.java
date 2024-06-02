@@ -37,30 +37,32 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
+import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Stream;
 
 public class TestParsingUtils {
+  private static final Random RANDOM = new Random();
 
   @ParameterizedTest
   @ArgumentsSource(ParsingStringsProvider.class)
-  public void testNumericParsingUtils(Optional<Locale> maybeLocale, String parameter, String expectedResult,
+  public void testNumericParsingUtils(Optional<Locale> maybeLocale, String parameter, boolean hasGrouping,
                                       boolean expectedParseability) {
-    var result = "";
+    var result = false;
     var isParseable = false;
 
     if (maybeLocale.isPresent()) {
-      result = NumericParsingUtils.stripGroupingSymbols(parameter,
-          Character.toString(DecimalFormatSymbols.getInstance(maybeLocale.get()).getDecimalSeparator()));
+      result = NumericParsingUtils.hasGrouping(parameter, maybeLocale.get());
       isParseable = NumericParsingUtils.isParseable(parameter, maybeLocale.get());
     } else {
-      result = NumericParsingUtils.stripGroupingSymbols(parameter);
+      result = NumericParsingUtils.hasGrouping(parameter);
       isParseable = NumericParsingUtils.isParseable(parameter);
     }
 
-    Assertions.assertEquals(expectedResult, result);
+    Assertions.assertEquals(hasGrouping, result);
     Assertions.assertEquals(expectedParseability, isParseable);
   }
 
@@ -69,24 +71,49 @@ public class TestParsingUtils {
     @Override
     public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) throws Exception {
       var platformDecimalSeparator =  Character.toString(DecimalFormatSymbols.getInstance().getDecimalSeparator());
+
       var sampleNr1 = "123" + platformDecimalSeparator + "456";
       var badNr1 = "123" + platformDecimalSeparator + "456" + platformDecimalSeparator + "789";
       var scientificNr = "456%s321E+0%s987".formatted(platformDecimalSeparator, platformDecimalSeparator);
       return Stream.of(
-          Arguments.of(Optional.of(Locale.GERMANY), "123.123,004", "123123,004", true),
-          Arguments.of(Optional.empty(), "123 456 789", "123456789", true),
-          Arguments.of(Optional.empty(), sampleNr1, sampleNr1, true),
-          Arguments.of(Optional.empty(), badNr1, badNr1, false),
-          Arguments.of(Optional.of(Locale.US), "123,456,789.002", "123456789.002", true),
-          Arguments.of(Optional.of(Locale.US), "123'456'789", "123456789", true),
-          Arguments.of(Optional.empty(), scientificNr, scientificNr, true),
-          Arguments.of(Optional.empty(), scientificNr.toLowerCase(), scientificNr.toLowerCase(), true),
-          Arguments.of(Optional.of(Locale.GERMANY), "123.986,009E-3,14", "123986,009E-3,14", true),
-          Arguments.of(Optional.of(Locale.US), "123,986.009e-3.14", "123986.009e-3.14", true),
-          Arguments.of(Optional.of(Locale.GERMANY), "123,123,123e-3,55,5", "123,123,123e-3,55,5", false),
-          Arguments.of(Optional.of(Locale.US), "123.123.123e-3.55.5", "123.123.123e-3.55.5", false)
+          Arguments.of(Optional.of(Locale.GERMANY), "123.123,004", true, true),
+          Arguments.of(Optional.of(Locale.CHINA), generateRandom(Locale.CHINA, 3), true, true),
+          Arguments.of(Optional.empty(), "123 456 789", false, false),
+          Arguments.of(Optional.empty(), sampleNr1, false, true),
+          Arguments.of(Optional.empty(), badNr1, false, false),
+          Arguments.of(Optional.of(Locale.US), "123,456,789.002", true, true),
+          Arguments.of(Optional.of(Locale.US), "123'456'789", false, false),
+          Arguments.of(Optional.empty(), scientificNr, false, true),
+          Arguments.of(Optional.empty(), scientificNr.toLowerCase(), false, true),
+          Arguments.of(Optional.of(Locale.GERMANY), "123.986,009E-3,14", true, true),
+          Arguments.of(Optional.of(Locale.US), "12,986.009e-3.14", true, true),
+          Arguments.of(Optional.of(Locale.GERMANY), "123,123,123e-3,55,5", false, false),
+          Arguments.of(Optional.of(Locale.US), "123.123.123e-3.55.5", false, false),
+          Arguments.of(Optional.of(Locale.GERMANY), "12.45.89", true, false)
       );
     }
   }
 
+
+  public static int randomGroup(Locale locale) {
+    var platformGSize = ((DecimalFormat) DecimalFormat.getInstance(locale)).getGroupingSize();
+    var number = Double.valueOf(Math.pow(10.0, platformGSize)).intValue();
+
+    return RANDOM.nextInt(number/10, number);
+  }
+
+  public static String generateRandom(Locale locale, int numberOfGroups) {
+    if (numberOfGroups < 1) {
+      return String.valueOf(RANDOM.nextInt(1, 10000000));
+    }
+
+    var sb = new StringBuilder();
+    sb.append(String.valueOf(randomGroup(locale)));
+    var grouping = String.valueOf(DecimalFormatSymbols.getInstance(locale).getGroupingSeparator());
+
+    for (int i = 1; i < numberOfGroups; i++) {
+      sb.append(grouping + randomGroup(locale));
+    }
+    return sb.toString();
+  }
 }

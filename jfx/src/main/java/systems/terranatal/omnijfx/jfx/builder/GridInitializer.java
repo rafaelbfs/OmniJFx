@@ -47,26 +47,36 @@ public class GridInitializer extends PaneInitializer<GridPane>  {
     super(supplier);
   }
 
-  public <N extends Node> GridPane addColumn(int colIndex, N... nodes) {
-    if (colIndex < 0 || nodes.length == 0) return instance;
-    instance.addColumn(colIndex, nodes);
-    return instance;
+  public static GridInitializer wrap(GridPane instance) {
+    return new GridInitializer(instance);
   }
 
-  public <N extends Node> GridPane addColumn(int colIndex, Supplier<N>... nodes) {
-    Stream<N> stream = Stream.of(nodes).map(Supplier::get);
+  @SafeVarargs
+  public final <N extends Node> GridInitializer addColumn(int colIndex, N... nodes) {
+    if (colIndex < 0 || nodes.length == 0) return this;
+    instance.addColumn(colIndex, nodes);
+    return this;
+  }
+
+  @SafeVarargs
+  public final GridInitializer addColumn(int colIndex, Supplier<? extends Node>... nodes) {
+    var stream = Stream.of(nodes).map(Supplier::get);
     return addColumn(colIndex, stream.toArray(Node[]::new));
   }
 
 
-  public <N extends Node> GridPane addRow(int rowIndex, N... nodes) {
-    if (rowIndex < 0 || nodes.length == 0) return instance;
+  @SafeVarargs
+  public final <N extends Node> GridInitializer addRow(int rowIndex, N... nodes) {
+    if (rowIndex < 0 || nodes.length == 0) {
+      return this;
+    }
     instance.addRow(rowIndex, nodes);
-    return instance;
+    return this;
   }
 
-  public <N extends Node> GridPane addRow(int rowIndex, Supplier<N>... nodes) {
-    Stream<N> stream = Stream.of(nodes).map(Supplier::get);
+  @SafeVarargs
+  public final GridInitializer addRow(int rowIndex, Supplier<? extends Node>... nodes) {
+    var stream = Stream.of(nodes).map(Supplier::get);
     return addRow(rowIndex, stream.toArray(Node[]::new));
   }
 }

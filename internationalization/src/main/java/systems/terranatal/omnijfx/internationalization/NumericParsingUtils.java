@@ -30,7 +30,10 @@
 
 package systems.terranatal.omnijfx.internationalization;
 
+import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -67,12 +70,21 @@ public interface NumericParsingUtils {
    * @return true if the string can be parsed to a number, false otherwise
    */
   static boolean isParseable(String text, Locale locale) {
-    var separator = Character.toString(DecimalFormatSymbols.getInstance(locale).getDecimalSeparator());
-    var str = stripGroupingSymbols(text, separator);
-    var localizedRational = "[\\+\\-]?\\d+(\\%s\\d+)?".formatted(separator);
-    var finalRegex = "%s([Ee]%s)?".formatted(localizedRational, localizedRational);
+    var symbols = DecimalFormatSymbols.getInstance(locale);
+    var separator = Character.toString(symbols.getDecimalSeparator());
+    var grouping = Character.toString(DecimalFormatSymbols.getInstance(locale).getGroupingSeparator());
+    final var scientific = "%s([Ee]%s)?";
 
-    return str.matches(finalRegex);
+    if (!text.contains(grouping)) {
+      var localizedRational = "[\\+\\-]?\\d+(\\%s\\d+)?".formatted(separator);
+      var finalRegex = scientific.formatted(localizedRational, localizedRational);
+      return text.matches(finalRegex);
+    }
+    var gsize = ((DecimalFormat) DecimalFormat.getInstance(locale)).getGroupingSize();
+    var rationalWithGrouping = "[\\+\\-]?\\d{1,%d}(\\%s\\d{%d})*(\\%s\\d+)?"
+            .formatted(gsize, grouping, gsize, separator);
+    var finalRegex = scientific.formatted(rationalWithGrouping, rationalWithGrouping);
+    return text.matches(finalRegex);
   }
 
   /**
@@ -93,5 +105,24 @@ public interface NumericParsingUtils {
    */
   static String stripGroupingSymbols(String text) {
     return stripGroupingSymbols(text, Character.toString(DecimalFormatSymbols.getInstance().getDecimalSeparator()));
+  }
+
+  static boolean hasGrouping(String text, Locale locale) {
+    var symbols = DecimalFormatSymbols.getInstance(locale);
+    var grouping = Character.toString(symbols.getGroupingSeparator());
+
+    return text.contains(grouping);
+  }
+
+  static boolean hasGrouping(String text) {
+    return hasGrouping(text, Locale.getDefault());
+  }
+
+  static Number parseUnchecked(NumberFormat formatter, String text) {
+      try {
+          return formatter.parse(text);
+      } catch (ParseException e) {
+          throw new IllegalArgumentException("Could not parse " + text + " as a number.", e);
+      }
   }
 }
