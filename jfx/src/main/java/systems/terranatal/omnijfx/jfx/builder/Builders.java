@@ -31,14 +31,8 @@
 package systems.terranatal.omnijfx.jfx.builder;
 
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 
 /**
  * Utility class containing methods to create Node and Pane builders
@@ -110,6 +104,23 @@ public interface Builders {
     }
 
     /**
+     * Creates an {@link Initializer} containing a {@link RadioButton} with a label
+     * @param label the label
+     * @return an {@link Initializer} containing a {@link RadioButton} with a label
+     */
+    static Initializer<RadioButton> radioButton(String label) {
+        return node(new RadioButton(label));
+    }
+
+    /**
+     * Creates an {@link Initializer} containing a {@link RadioButton}
+     * @return an {@link Initializer} containing a {@link RadioButton}
+     */
+    static Initializer<RadioButton> radioButton() {
+        return node(new RadioButton());
+    }
+
+    /**
      * Specialized method from {@link Builders#pane(Pane)} to create a {@link HBox} initializer
      * @return an initializer for {@link HBox}
      */
@@ -143,4 +154,11 @@ public interface Builders {
         return pane(new StackPane());
     }
 
+    /**
+     * Creates a {@link GridInitializer}.
+     * @return a {@link GridInitializer}
+     */
+    static GridInitializer gridPane() {
+        return new GridInitializer(new GridPane());
+    }
 }

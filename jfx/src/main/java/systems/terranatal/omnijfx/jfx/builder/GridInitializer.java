@@ -27,16 +27,56 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-module omnijfx {
-    requires javafx.controls;
-    requires javafx.graphics;
-    requires omnijfx.internationalization;
-    requires java.logging;
-  //requires org.junit.jupiter.engine;
 
-    opens systems.terranatal.omnijfx.jfx.builder;
-    opens systems.terranatal.omnijfx.jfx.datautils;
+package systems.terranatal.omnijfx.jfx.builder;
 
-    exports systems.terranatal.omnijfx.jfx.builder;
-    exports systems.terranatal.omnijfx.jfx.datautils;
+import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
+public class GridInitializer extends PaneInitializer<GridPane>  {
+  public GridInitializer(GridPane instance) {
+    super(instance);
+  }
+
+  public GridInitializer(Supplier<GridPane> supplier) {
+    super(supplier);
+  }
+
+  public static GridInitializer wrap(GridPane instance) {
+    return new GridInitializer(instance);
+  }
+
+  @SafeVarargs
+  public final <N extends Node> GridInitializer addColumn(int colIndex, N... nodes) {
+    if (colIndex < 0 || nodes.length == 0) return this;
+    instance.addColumn(colIndex, nodes);
+    return this;
+  }
+
+  @SafeVarargs
+  public final GridInitializer addColumn(int colIndex, Supplier<? extends Node>... nodes) {
+    var stream = Stream.of(nodes).map(Supplier::get);
+    return addColumn(colIndex, stream.toArray(Node[]::new));
+  }
+
+
+  @SafeVarargs
+  public final <N extends Node> GridInitializer addRow(int rowIndex, N... nodes) {
+    if (rowIndex < 0 || nodes.length == 0) {
+      return this;
+    }
+    instance.addRow(rowIndex, nodes);
+    return this;
+  }
+
+  @SafeVarargs
+  public final GridInitializer addRow(int rowIndex, Supplier<? extends Node>... nodes) {
+    var stream = Stream.of(nodes).map(Supplier::get);
+    return addRow(rowIndex, stream.toArray(Node[]::new));
+  }
 }
