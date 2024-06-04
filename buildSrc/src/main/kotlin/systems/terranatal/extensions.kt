@@ -33,8 +33,11 @@ package systems.terranatal
 import gradle.kotlin.dsl.accessors._ef75a60ead13a537a1cba035154c8ec4.publishing
 import gradle.kotlin.dsl.accessors._ef75a60ead13a537a1cba035154c8ec4.signing
 import org.gradle.api.Project
+import org.gradle.api.component.SoftwareComponent
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.tasks.TaskProvider
+import org.gradle.api.tasks.bundling.Jar
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
@@ -58,19 +61,30 @@ fun Project.signPublication(publicationName: String) {
   }
 }
 
-fun Project.generateMvnPublication(publicationName: String, bundleName: String) {
+fun Project.generateMvnPublication(
+  publicationName: String, bundleName: String,
+  descr: String,
+  comp: SoftwareComponent? = null,
+  docJar: TaskProvider<Jar>? = null,
+  sourcesJar: TaskProvider<Jar>? = null) {
   if (!allSignParametersPresent()) {
     return
   }
   publishing {
     publications {
       create<MavenPublication>(publicationName) {
-        from(components["java"])
+        from(comp ?: components["java"])
+        if (sourcesJar != null) {
+          artifact(sourcesJar)
+        }
+        if (docJar != null) {
+          artifact(docJar)
+        }
 
         pom {
           name.set(bundleName)
-          description.set("Utility helpers to create JavaFX components using Java")
-          url.set("https://github.com/rafaelbfs/omnijfx/jfx")
+          description.set(descr)
+          url.set("https://github.com/rafaelbfs/omnijfx/$publicationName")
           licenses {
             license {
               name.set("MIT License")

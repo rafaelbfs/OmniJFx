@@ -1,3 +1,5 @@
+import systems.terranatal.generateMvnPublication
+
 /*
  * Copyright © 2024, Rafael Barros Felix de Sousa @ Terranatal Systems
  *
@@ -30,6 +32,7 @@
 
 plugins {
     kotlin("jvm") version "1.9.20"
+    id("org.jetbrains.dokka") version "1.9.20"
     `maven-publish`
     id("org.openjfx.javafxplugin") version "0.1.0"
     signing
@@ -42,6 +45,24 @@ val testFxVer = "4.0.17"
 repositories {
     mavenCentral()
 }
+
+val dokkaHtml by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class)
+
+val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
+    dependsOn(dokkaHtml)
+    archiveClassifier.set("javadoc")
+    from(dokkaHtml.outputDirectory)
+}
+
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
+}
+
+generateMvnPublication("Kfx", "kotlin-fxtras",
+    "Kotlin helpers and extensions to help developing JavaFX apps.",
+    components["kotlin"],
+    javadocJar, sourcesJar)
 
 dependencies {
     implementation(project(":internationalization"))

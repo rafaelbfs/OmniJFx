@@ -38,19 +38,49 @@ import java.util.Collections;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+/**
+ * {@link PaneInitializer} specialized inm initializing {@link GridPane}
+ */
 public class GridInitializer extends PaneInitializer<GridPane>  {
+  /**
+   * Creates a GridInitializer with the instance inside
+   * @param instance a {@link GridPane}
+   */
   public GridInitializer(GridPane instance) {
     super(instance);
   }
 
+  /**
+   * Creates a GridInitializer using the object returned by calling the supplier parameter
+   * @param supplier a {@link Supplier} which returns a {@link GridPane} instance
+   */
   public GridInitializer(Supplier<GridPane> supplier) {
     super(supplier);
   }
 
+  /**
+   * No-args constructor that creates a {@link GridPane} in its body.
+   */
+  public GridInitializer() {
+    this(new GridPane());
+  }
+
+  /**
+   * Wraps an instance of {@link GridPane} inside the a {@link GridInitializer}
+   * @param instance the instance to be wrapped
+   * @return a {@link GridInitializer} with the instance wrapped inside it
+   */
   public static GridInitializer wrap(GridPane instance) {
     return new GridInitializer(instance);
   }
 
+  /**
+   * Adds a column with the nodes to the {@link GridPane}
+   * @param colIndex the column index
+   * @param nodes the {@link Node}s to be added
+   * @return this {@link GridInitializer}
+   * @param <N> any {@link Node} and its subclasses
+   */
   @SafeVarargs
   public final <N extends Node> GridInitializer addColumn(int colIndex, N... nodes) {
     if (colIndex < 0 || nodes.length == 0) return this;
@@ -58,13 +88,26 @@ public class GridInitializer extends PaneInitializer<GridPane>  {
     return this;
   }
 
+  /**
+   * Adds a column with the nodes returned by each of the {@link Supplier}s in the arguments
+   * to the {@link GridPane}
+   * @param colIndex the column index
+   * @param nodes {@link Supplier}s of any {@link Node} instance
+   * @return this {@link GridInitializer}
+   */
   @SafeVarargs
   public final GridInitializer addColumn(int colIndex, Supplier<? extends Node>... nodes) {
     var stream = Stream.of(nodes).map(Supplier::get);
     return addColumn(colIndex, stream.toArray(Node[]::new));
   }
 
-
+  /**
+   * Adds a row with the nodes to the {@link GridPane}
+   * @param rowIndex the row index
+   * @param nodes the {@link Node}s to be added
+   * @return this {@link GridInitializer}
+   * @param <N> any {@link Node} and its subclasses
+   */
   @SafeVarargs
   public final <N extends Node> GridInitializer addRow(int rowIndex, N... nodes) {
     if (rowIndex < 0 || nodes.length == 0) {
@@ -74,6 +117,13 @@ public class GridInitializer extends PaneInitializer<GridPane>  {
     return this;
   }
 
+  /**
+   * Adds a row with the nodes returned by each of the {@link Supplier}s in the arguments
+   * to the {@link GridPane}
+   * @param rowIndex the row index
+   * @param nodes {@link Supplier}s of any {@link Node} instance
+   * @return this {@link GridInitializer}
+   */
   @SafeVarargs
   public final GridInitializer addRow(int rowIndex, Supplier<? extends Node>... nodes) {
     var stream = Stream.of(nodes).map(Supplier::get);
