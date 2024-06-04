@@ -47,7 +47,8 @@ repositories {
     mavenCentral()
 }
 
-generateMvnPublication(publicationName, "java-fxtras")
+generateMvnPublication(publicationName, "java-fxtras",
+    "Java helpers to create JavaFX components.")
 
 java {
     withJavadocJar()

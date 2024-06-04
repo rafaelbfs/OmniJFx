@@ -51,7 +51,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params")
 }
 
-generateMvnPublication("internationalization", "omni-internationalization")
+generateMvnPublication("internationalization", "omni-internationalization",
+    "Java classes to help in the localization of JavaFX apps")
 
 java {
     withJavadocJar()

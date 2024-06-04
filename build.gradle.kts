@@ -33,7 +33,7 @@ plugins {
 }
 
 group = "systems.terranatal.omnijfx"
-version = "0.2.1-SNAPSHOT"
+version = "0.3.1-SNAPSHOT"
 
 repositories {
     mavenCentral()

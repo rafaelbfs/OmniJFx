@@ -38,6 +38,16 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Utility class to help parsing of localized strings into numbers. The
+ * {@link NumericParsingUtils#isParseable(String, Locale)} method allows the user to verify if a String
+ * is parseable upfront thus avoiding cumbersome exception handling. It is also capable
+ * of handling locale-specific grouping such as {@code 12,345,678} for English locales and
+ * {@code 12.345.678} in other locales such as France and Germany.
+ * <p> The {@link NumericParsingUtils#parseUnchecked(NumberFormat, String)}, allows a more convenient
+ * parsing inside lambda expressions for not having to handle checked exceptions that might never be
+ * thrown when the user does proper validation of the input.</p>
+ */
 public interface NumericParsingUtils {
 
   /**
@@ -107,6 +117,12 @@ public interface NumericParsingUtils {
     return stripGroupingSymbols(text, Character.toString(DecimalFormatSymbols.getInstance().getDecimalSeparator()));
   }
 
+  /**
+   * Checks if the given string has digit grouping characters of the given {@link Locale}
+   * @param text the string to be tested
+   * @param locale the locale whose grouping symbol is tro be used
+   * @return true if the string contains at least one grouping symbol, false otherwise
+   */
   static boolean hasGrouping(String text, Locale locale) {
     var symbols = DecimalFormatSymbols.getInstance(locale);
     var grouping = Character.toString(symbols.getGroupingSeparator());
@@ -114,10 +130,23 @@ public interface NumericParsingUtils {
     return text.contains(grouping);
   }
 
+  /**
+   * Checks if the given string has digit grouping characters of the system-default {@link Locale}
+   * @param text the string to be tested
+   * @return true if the string contains at least one grouping symbol, false otherwise
+   */
   static boolean hasGrouping(String text) {
     return hasGrouping(text, Locale.getDefault());
   }
 
+  /**
+   * Calls {@link NumberFormat#parse(String)} with the given text but wraps its {@link ParseException} into
+   * an {@link IllegalArgumentException} in case it is thrown.
+   * A convenience method to call inside lamba bodies
+   * @param formatter the {@link NumberFormat} to be used
+   * @param text the string to be parsed to {@link Number}
+   * @return the parsed number or throws an {@link IllegalArgumentException} in case it is unsuccessful
+   */
   static Number parseUnchecked(NumberFormat formatter, String text) {
       try {
           return formatter.parse(text);
