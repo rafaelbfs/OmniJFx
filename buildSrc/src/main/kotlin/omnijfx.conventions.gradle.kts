@@ -56,7 +56,7 @@ if (providers.gradleProperty("ossrh.username").isPresent &&
 
 java {
   toolchain {
-    languageVersion = JavaLanguageVersion.of(21)
+    languageVersion = JavaLanguageVersion.of(17)
   }
   withJavadocJar()
   withSourcesJar()

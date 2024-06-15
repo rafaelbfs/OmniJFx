@@ -11,9 +11,9 @@ public class BundleTestArgsProvider implements ArgumentsProvider {
   @Override
   public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) throws Exception {
     return Stream.of(
-        Arguments.of("bundle.pt_PT.properties", Locale.of("pt", "PT"),
+        Arguments.of("bundle.pt_PT.properties", new Locale("pt", "PT"),
             "Portugu\u00EAs Europeu", "Ol\u00E1 Mundo!"),
-        Arguments.of("UTF-16/ru_RU.bundle", Locale.of("ru", "RU"),
+        Arguments.of("UTF-16/ru_RU.bundle", new Locale("ru", "RU"),
             "\u0440\u0443\u0441\u0441\u043A\u0438\u0439",
             "\u041F\u0440\u0438\u0432\u0435\u0442, \u043C\u0438\u0440!")
 

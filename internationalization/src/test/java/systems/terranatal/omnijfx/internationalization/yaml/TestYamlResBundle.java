@@ -14,7 +14,7 @@ public class TestYamlResBundle {
   @Test
   public void testLoading() {
     try (var reader = TestBundles.retrieveResource("sv_SE.yaml", StandardCharsets.UTF_8)) {
-      var yrb = new YamlResourceBundle(reader, Locale.of("pt", "BR"), StandardCharsets.UTF_8);
+      var yrb = new YamlResourceBundle(reader, new Locale("sv", "SE"), StandardCharsets.UTF_8);
 
       assertEquals("God morgon", yrb.stringFor("application.greetings.goodMorning"));
       assertEquals("Svenska (Sverige)", yrb.stringFor("application.language"));

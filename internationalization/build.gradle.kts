@@ -55,6 +55,9 @@ generateMvnPublication("internationalization", "omni-internationalization",
     "Java classes to help in the localization of JavaFX apps")
 
 java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
     withJavadocJar()
     withSourcesJar()
 }

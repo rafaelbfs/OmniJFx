@@ -30,7 +30,10 @@
 
 package systems.terranatal.omnijfx.jfx.builder;
 
+import static java.util.Objects.isNull;
+
 import javafx.beans.property.Property;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 
@@ -123,7 +126,16 @@ public class Initializer<N extends Node> implements Supplier<N> {
     public <V, R> Initializer<N> bind(ObservableValue<V> source, Function<N, Property<R>> targetGetter,
                                       Function<V,R> mapping) {
         var property = targetGetter.apply(instance);
-        property.bind(source.map(mapping));
+        source.addListener((pro, ov, nv) -> {
+            if (isNull(nv)) {
+                property.setValue(null);
+                return;
+            }
+            if (nv == ov) {
+                return;
+            }
+            property.setValue(mapping.apply(nv));
+        });
         return this;
     }
 

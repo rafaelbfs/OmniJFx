@@ -79,9 +79,9 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
 }
 javafx {
-    version = "21.0.2"
+    version = "17.0.11"
     modules("javafx.controls", "javafx.graphics")
 }
