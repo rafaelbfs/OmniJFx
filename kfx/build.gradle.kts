@@ -31,7 +31,7 @@ import systems.terranatal.generateMvnPublication
  */
 
 plugins {
-    kotlin("jvm") version "1.9.20"
+    kotlin("jvm") version "2.0.0"
     id("org.jetbrains.dokka") version "1.9.20"
     `maven-publish`
     id("org.openjfx.javafxplugin") version "0.1.0"
@@ -82,6 +82,6 @@ kotlin {
     jvmToolchain(17)
 }
 javafx {
-    version = "17.0.11"
+    version = "21.0.2"
     modules("javafx.controls", "javafx.graphics")
 }

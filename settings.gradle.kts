@@ -35,3 +35,5 @@ rootProject.name = "omnijfx"
 include("jfx")
 include("kfx")
 include("internationalization")
+include("launcher")
+include("provisioners")

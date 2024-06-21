@@ -41,7 +41,7 @@ import java.util.stream.Stream;
 /**
  * {@link PaneInitializer} specialized inm initializing {@link GridPane}
  */
-public class GridInitializer extends PaneInitializer<GridPane>  {
+public class GridInitializer extends PaneInitializer<GridPane> implements Supplier<GridPane> {
   /**
    * Creates a GridInitializer with the instance inside
    * @param instance a {@link GridPane}

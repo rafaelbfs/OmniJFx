@@ -69,6 +69,6 @@ tasks.test {
 }
 
 javafx {
-    version = "17.0.11"
+    version = "21.0.2"
     modules("javafx.controls", "javafx.graphics")
 }

@@ -126,16 +126,7 @@ public class Initializer<N extends Node> implements Supplier<N> {
     public <V, R> Initializer<N> bind(ObservableValue<V> source, Function<N, Property<R>> targetGetter,
                                       Function<V,R> mapping) {
         var property = targetGetter.apply(instance);
-        source.addListener((pro, ov, nv) -> {
-            if (isNull(nv)) {
-                property.setValue(null);
-                return;
-            }
-            if (nv == ov) {
-                return;
-            }
-            property.setValue(mapping.apply(nv));
-        });
+        property.bind(source.map(mapping));
         return this;
     }
 
