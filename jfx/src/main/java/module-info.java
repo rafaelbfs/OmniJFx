@@ -36,7 +36,9 @@ module omnijfx {
 
     opens systems.terranatal.omnijfx.jfx.builder;
     opens systems.terranatal.omnijfx.jfx.datautils;
+    opens systems.terranatal.omnijfx.jfx.builder.treeviews;
 
     exports systems.terranatal.omnijfx.jfx.builder;
     exports systems.terranatal.omnijfx.jfx.datautils;
+    exports systems.terranatal.omnijfx.jfx.builder.treeviews;
 }
